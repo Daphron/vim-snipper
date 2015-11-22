@@ -24,13 +24,14 @@ class Snipper(object):
         # input_thread.join()
         # self.recieve_snippets()
 
-    @neovim.command('SendLine')
+    @neovim.command('SendLine', sync=True)
     def send_line(self):
         # Set the folloing mapping in the .vimrc TODO: set it in plugin?
         # inoremap <Enter> <C-O>:SendLine<CR><Enter>
-        # line = self.vim.current.line
-        (row, col) = self.vim.current.window.cursor
-        line = self.vim.current.buffer[row-2] # 0 vs 1 based
+        line = self.vim.current.line
+        # (row, col) = self.vim.current.window.cursor
+        # line = self.vim.current.buffer[row-2] # 0 vs 1 based
+
         # line = self.vim.eval("getline('.')")
         self.socket_out.sendall(line)   
 
